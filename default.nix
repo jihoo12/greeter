@@ -9,7 +9,7 @@
 
 pkgs.rustPlatform.buildRustPackage {
   pname = "greeter";
-  version = "0.3.0";
+  version = "0.3.1";
 
   src = ./.;
 
@@ -21,7 +21,6 @@ pkgs.rustPlatform.buildRustPackage {
 
   meta = with pkgs.lib; {
     description = "A minimal CLI greeter for greetd that just works out of the box";
-    license = licenses.mit;
     platforms = platforms.linux;
     mainProgram = "greeter";
   };
