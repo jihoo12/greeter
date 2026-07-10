@@ -360,6 +360,25 @@ fn discover_sessions() -> Vec<Session> {
 
     sessions.sort_by(|a, b| a.name.to_lowercase().cmp(&b.name.to_lowercase()));
     sessions.dedup_by(|a, b| a.name == b.name);
+
+    // Hard fallback: on some setups (e.g. niri installed only through a
+    // user/home-manager profile) no wayland-sessions/*.desktop file for
+    // niri ever lands in a path we scan above, so normal discovery finds
+    // nothing and we'd silently drop the user into a plain shell instead.
+    // If `niri-session` is resolvable on $PATH at all, always offer it as
+    // a session regardless of whether a .desktop entry exists.
+    if binary_exists("niri-session") && !sessions.iter().any(|s| s.name.eq_ignore_ascii_case("niri"))
+    {
+        sessions.insert(
+            0,
+            Session {
+                name: "niri".to_string(),
+                cmd: vec!["niri-session".to_string()],
+                kind: SessionKind::Wayland,
+            },
+        );
+    }
+
     sessions
 }
 
