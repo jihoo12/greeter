@@ -8,8 +8,8 @@
 { pkgs ? import <nixpkgs> { } }:
 
 pkgs.rustPlatform.buildRustPackage {
-  pname = "greetd-mini-greeter";
-  version = "0.1.0";
+  pname = "greeter";
+  version = "0.2.0";
 
   src = ./.;
 
@@ -23,6 +23,6 @@ pkgs.rustPlatform.buildRustPackage {
     description = "A minimal CLI greeter for greetd that just works out of the box";
     license = licenses.mit;
     platforms = platforms.linux;
-    mainProgram = "greetd-mini-greeter";
+    mainProgram = "greeter";
   };
 }

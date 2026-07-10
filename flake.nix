@@ -1,5 +1,5 @@
 {
-  description = "greetd-mini-greeter: a minimal, zero-config CLI greeter for greetd";
+  description = "greeter: a minimal, zero-config CLI greeter for greetd";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -13,8 +13,8 @@
       in
       {
         packages.default = pkgs.rustPlatform.buildRustPackage {
-          pname = "greetd-mini-greeter";
-          version = "0.1.0";
+          pname = "greeter";
+          version = "0.2.0";
 
           src = ./.;
 
@@ -28,16 +28,16 @@
 
           meta = with pkgs.lib; {
             description = "A minimal CLI greeter for greetd that just works out of the box";
-            homepage = "https://github.com/example/greetd-mini-greeter";
+            homepage = "https://github.com/jihoo12/greeter";
             license = licenses.mit;
             platforms = platforms.linux;
-            mainProgram = "greetd-mini-greeter";
+            mainProgram = "greeter";
           };
         };
 
         apps.default = {
           type = "app";
-          program = "${self.packages.${system}.default}/bin/greetd-mini-greeter";
+          program = "${self.packages.${system}.default}/bin/greeter";
         };
 
         devShells.default = pkgs.mkShell {
@@ -57,7 +57,7 @@
         in
         {
           options.services.greetd-mini-greeter = {
-            enable = lib.mkEnableOption "greetd-mini-greeter as the greetd greeter";
+            enable = lib.mkEnableOption "greeter as the greetd greeter";
 
             user = lib.mkOption {
               type = lib.types.str;
@@ -71,7 +71,7 @@
               enable = true;
               settings = {
                 default_session = {
-                  command = "${package}/bin/greetd-mini-greeter";
+                  command = "${package}/bin/greeter";
                   user = cfg.user;
                 };
               };
