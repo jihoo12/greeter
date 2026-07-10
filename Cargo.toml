@@ -1,0 +1,16 @@
+[package]
+name = "greetd-mini-greeter"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+greetd_ipc = { version = "0.10.3", features = ["sync-codec"] }
+libc = "0.2.186"
+shell-words = "1.1.1"
+
+[profile.release]
+lto = true
+strip = true
+panic = "abort"
